@@ -4,6 +4,7 @@ import DarkMode from './DarkMode'
 import Logo from './Logo'
 
 
+
 function Navbar() {
   return (
     <nav className='border-b'>
@@ -18,5 +19,4 @@ function Navbar() {
     </nav>
   )
 }
-
 export default Navbar
