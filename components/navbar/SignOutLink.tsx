@@ -1,6 +1,6 @@
 import React from 'react'
 
-function () {
+function SignOutLink() {
   return (
     <div>
       SignOut
@@ -8,4 +8,4 @@ function () {
   )
 }
 
-export default 
+export default SignOutLink
