@@ -11,8 +11,8 @@ const initialState = {
 }
 
 export default function FormContainer ({
-    action, children,
-
+    action, 
+    children,
 }:{
     action:actionFunction,
     children:React.ReactNode
@@ -25,7 +25,7 @@ export default function FormContainer ({
             toast({description : state.message})
         }
     }, [state])
-
+    
     return (
         <form action={formAction}>{children}</form> 
     )    
