@@ -10,9 +10,9 @@ export default function CreateProfilePage() {
             <div className='border p-8 rounded-md'>
                <FormContainer action={createProfileAction}>
                     <div className='grid md:grid-cols-2 gap-4 mt-4' >
-                        <FormInput type='text' name='fistName' label="First Name"/>
+                        <FormInput type='text' name='firstName' label="First Name"/>
                         <FormInput type='text' name='lastName' label="Last Name"/>
-                        <FormInput type='text' name='userName' label="Username"/>
+                        <FormInput type='text' name='username' label="Username"/>
                     </div>
                     <SubmitButtons text="Create Profile" className='mt-8'/>
                </FormContainer>
