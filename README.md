@@ -889,9 +889,10 @@ if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma;
 - add to .env
 
 ```bash
-DATABASE_URL=""
-DIRECT_URL=""
+DATABASE_URL="" //  connection => mode:transaction
+DIRECT_URL="" //  connection => mode:session and replace [YOUR PASSWORD] From DB_PASSWORD
 ```
+
 
 - DATABASE_URL : Transaction + Password + "?pgbouncer=true&connection_limit=1"
 - DIRECT_URL : Session + Password
