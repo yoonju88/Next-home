@@ -34,3 +34,16 @@ export function validateWithZodSchema<T>(schema:ZodSchema<T>,data:unknown):T {
 // 	4.	간단한 재사용:
 // 	•	이 함수는 다양한 Zod 스키마와 데이터에 대해 유효성 검사를 수행할 수 있도록 설계되었습니다. 따라서 코드 중복을 줄이고, 유효성 검사 로직을 중앙 집중화할 수 있습니다.
 
+export const imageSchema = z.object({
+    image:validateFile(),
+})
+
+function validateFile() {
+    const maxUploadSize = 1024 *1024;
+    const acceptedFileTypes = ['image/']
+    return z.instanceof(File).refine((file)=> {
+        return !file || file.size <= maxUploadSize
+    }, 'File size must be less than 1 MB').refine((file)=> {
+        return !file || acceptedFileTypes.some((type) => file.type.startsWith(type))
+    }, 'File must be an image')
+}
