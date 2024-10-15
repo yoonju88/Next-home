@@ -1,9 +1,26 @@
 'use server'
-import db from './db';
+import prisma from './db';
 import { auth, clerkClient, currentUser } from '@clerk/nextjs/server';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 import { profileSchema } from "./schemas"
+
+const getAuthUser = async() => {
+    const user = await currentUser()
+    if(!user) {
+        throw new Error ('Please logged in to access this page')
+    }
+    if(!user.privateMetadata.hasProfile) redirect('/profile/create')
+        return user
+}
+
+const renderError = (error:unknown):{message:string} => {
+    console.log(error)
+    return (
+     {message: error instanceof Error? error.message: 'An error occurred'}
+    )
+}
+
 
 export const createProfileAction = async (
     prevState: any, 
@@ -15,7 +32,7 @@ export const createProfileAction = async (
 
         const rawData = Object.fromEntries(formData)
         const validatedFields = profileSchema.parse(rawData)
-        await db.profile.create({
+        await prisma.profile.create({
             data: {
                 clerkId:user.id, 
                 email:user.emailAddresses[0].emailAddress,
@@ -29,7 +46,7 @@ export const createProfileAction = async (
             }
         })
     }catch (error){
-        return {message: error instanceof Error? error.message: 'An error occurred'}
+        return renderError(error)
     }
     redirect('/')
 }
@@ -37,13 +54,45 @@ export const createProfileAction = async (
 export const fetchProfileImage = async () => {
     const user = await currentUser ()
     if (!user) return null
-    const profile = await db.profile.findUnique({
+    const profile = await prisma.profile.findUnique({
         where: {
-            clerkId:user.id
+            clerkId: user.id,
         },
         select: {
             profileImage: true,
         },
     })
     return profile?.profileImage;
+}
+
+export const fetchProfile = async() => {
+    const user = await getAuthUser();
+    const profile = await prisma.profile.findUnique({
+        where: {
+            clerkId: user.id,
+        },
+    })
+    if (!profile) redirect('/profile/create')
+    return profile;
+}
+
+export const updateProfileAction = async(
+    prevState: any, 
+    formData: FormData
+): Promise<{ message:string }> => {
+    const user = await getAuthUser()
+    try {
+        const rawData = Object.fromEntries(formData)
+        const validatedFields = profileSchema.parse(rawData)
+        await prisma.profile.update ({
+            where: {
+                clerkId: user.id,
+            },
+            data: validatedFields,
+        })
+        revalidatePath('/profile')
+        return {message:'Profile updated successfully'}
+    }catch (error) {
+        return renderError(error)
+    }
 }
