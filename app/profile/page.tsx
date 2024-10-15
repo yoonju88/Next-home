@@ -1,7 +1,7 @@
 import FormContainer from '@/components/form/FormContainer';
 import { updateProfileAction, fetchProfile } from '@/utils/action';
 import FormInput from '@/components/form/FormInput';
-import SubmitButtons  from '@/components/form/Buttons';
+import SubmitButton  from '@/components/form/Buttons';
 
 async function ProfilePage() {
   const profile = await fetchProfile()
@@ -32,7 +32,7 @@ async function ProfilePage() {
               defaultValue= {profile.username}
             />
           </div>
-          <SubmitButtons text="update profile" className='mt-8' />
+          <SubmitButton text="update profile" className='mt-8' />
         </FormContainer>
       </div>
     </section>

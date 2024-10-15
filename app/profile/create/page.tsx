@@ -1,4 +1,4 @@
-import SubmitButtons from '@/components/form/Buttons'
+import SubmitButton from '@/components/form/Buttons'
 import FormContainer from '@/components/form/FormContainer'
 import FormInput from '@/components/form/FormInput'
 import { createProfileAction } from '@/utils/action'
@@ -18,7 +18,7 @@ export default async function CreateProfilePage() {
                         <FormInput type='text' name='lastName' label="Last Name"/>
                         <FormInput type='text' name='username' label="Username"/>
                     </div>
-                    <SubmitButtons text="Create Profile" className='mt-8'/>
+                    <SubmitButton text="Create Profile" className='mt-8'/>
                </FormContainer>
             </div>
         </section>
