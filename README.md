@@ -1036,7 +1036,7 @@ npx prisma studio
 [Clerk User Metadata](https://clerk.com/docs/users/metadata)
 
 ```ts
-import db from './db';
+import prisma from './db';
 import { auth, clerkClient, currentUser } from '@clerk/nextjs/server';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
@@ -1052,7 +1052,7 @@ export const createProfileAction = async (
     const rawData = Object.fromEntries(formData);
     const validatedFields = profileSchema.parse(rawData);
 
-    await db.profile.create({
+    await prisma.profile.create({
       data: {
         clerkId: user.id,
         email: user.emailAddresses[0].emailAddress,
@@ -1145,7 +1145,7 @@ const getAuthUser = async () => {
 export const fetchProfile = async () => {
   const user = await getAuthUser();
 
-  const profile = await db.profile.findUnique({
+  const profile = await prisma.profile.findUnique({
     where: {
       clerkId: user.id,
     },
@@ -1224,7 +1224,7 @@ export const updateProfileAction = async (
 
     const validatedFields = profileSchema.parse(rawData);
 
-    await db.profile.update({
+    await prisma.profile.update({
       where: {
         clerkId: user.id,
       },
@@ -1268,7 +1268,7 @@ export const updateProfileAction = async (
       throw new Error(errors.join(','));
     }
 
-    await db.profile.update({
+    await prisma.profile.update({
       where: {
         clerkId: user.id,
       },
