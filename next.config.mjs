@@ -3,16 +3,19 @@
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-    images:{
-        remotePatterns : [ 
+    images: {
+        remotePatterns: [
             {
-                protocol:'https',
-                hostname: "img.clerk.com",
+                protocol: 'https',
+                hostname: 'img.clerk.com',
+            },
+            {
+                protocol: 'https',
+                hostname: 'ksfhpbeanxnlfmdlhfgo.supabase.co',
             },
         ],
     },
 };
-
 export default nextConfig;
 
 // images 설정을 통해 외부 이미지 사용을 관리하는 옵션을 설정할 수 있습니다. 

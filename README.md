@@ -1553,6 +1553,13 @@ export const updateProfileImageAction = async (
 ```
 
 ### Create Bucket, Setup Policy and API Keys
+https://supabase.com/dashboard/project/ksfhpbeanxnlfmdlhfgo/storage/buckets
+
+=> Click `New bucket` on the web site of supabase
+=> click `Policies` from the menu (on the left) => click `New policy`from the new bucket i created 
+=>  click `For full customization`=> selection `INSERT` from Allowed opertion and named this new policy. => click `review` => `save policy` 
+
+=> go to `setting` >  API > take  `URL` and `public key`
 
 ```env
 SUPABASE_URL=
@@ -1560,6 +1567,7 @@ SUPABASE_KEY=
 ```
 
 ### Setup Supabase
+to upload image
 
 ```sh
 npm install @supabase/supabase-js
