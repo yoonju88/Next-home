@@ -36,13 +36,14 @@ function CreatePropertyPage() {
                         name='description'
                         labelText='Description (10 - 1000 Words)'
                     />
+                    <div className='grid sm:grid-cols-2 gap-8 mt-4'>
+                        <CountriesInput />
+                        <ImageInput />
+                    </div>
                     <SubmitButton text='create rental' className='mt-12' />
                 </FormContainer>
             </div>
-            <div className='grid sm:grid-cols-2 gap-8 mt-4'>
-                <CountriesInput />
-                <ImageInput />
-            </div>
+
         </section>
     )
 }
