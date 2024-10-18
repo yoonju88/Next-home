@@ -39,7 +39,7 @@ function PropertyCard({ property }: { property: PropertyCardProps }) {
                         </span>
                         night
                     </p>
-                    < CountryFlagAndName />
+                    < CountryFlagAndName countryCode={country} />
                 </div>
             </Link>
             <div className='absolute top-5 right-5 z-5'>
