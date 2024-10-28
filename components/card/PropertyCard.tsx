@@ -24,7 +24,7 @@ function PropertyCard({ property }: { property: PropertyCardProps }) {
                     />
                 </div>
                 <div className='flex justify-between items-center'>
-                    <h3 className='text-sm font-semibold mt-1' W>
+                    <h3 className='text-sm font-semibold mt-1'>
                         {name.substring(0, 30)}
                     </h3>
                     <PropertyRating inPage={false} propertyId={propertyId} />
@@ -37,7 +37,7 @@ function PropertyCard({ property }: { property: PropertyCardProps }) {
                         <span className='font-semibold'>
                             {formatCurrency(price)}
                         </span>
-                        night
+                        <span className='px-1'>night</span>
                     </p>
                     < CountryFlagAndName countryCode={country} />
                 </div>

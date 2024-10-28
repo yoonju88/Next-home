@@ -10,6 +10,7 @@ async function PropertiesContainer({
     category?: string;
     search?: string;
 }) {
+
     const properties: PropertyCardProps[] = await fetchProperties({
         category,
         search,
@@ -23,7 +24,9 @@ async function PropertiesContainer({
             />
         );
     }
-    return <PropertiesList properties={properties} />;
+    return (
+        <PropertiesList properties={properties} />
+    );
 }
 
 export default PropertiesContainer

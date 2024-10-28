@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import Navbar from "@/components/navbar/Navbar";
-import {Inter} from 'next/font/google'
-import Providers  from "./proviers";
-import {ClerkProvider} from '@clerk/nextjs'
+import { Inter } from 'next/font/google'
+import Providers from "./proviers";
+import { ClerkProvider } from '@clerk/nextjs'
 
-const inter = Inter({subsets: ['latin']})
+const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
   title: "HomeAway",
@@ -14,11 +14,11 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly <{
+}: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <ClerkProvider>
+    <ClerkProvider dynamic>
       <html lang="en" suppressHydrationWarning>
         <body className={inter.className}>
           <Providers>
@@ -29,6 +29,6 @@ export default function RootLayout({
           </Providers>
         </body>
       </html>
-    </ClerkProvider>
+    </ClerkProvider >
   );
 }

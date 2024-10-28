@@ -2810,6 +2810,13 @@ export default HomePage;
 ```sh
 npm i use-debounce
 ```
+디바운스(debounce)란?
+
+디바운스는 짧은 시간 동안 여러 번 발생하는 이벤트를 묶어서 한 번만 실행되도록 제어하는 기법입니다. 주로 입력 필드와 같이 사용자의 빠른 타이핑이나 스크롤 이벤트 등을 처리할 때 유용합니다. 예를 들어, 검색 필드에서 사용자가 입력할 때마다 서버로 요청을 보내는 대신, 일정 시간 동안 입력이 멈췄을 때만 요청을 보내는 방식이 디바운스입니다.
+
+- 불필요한 요청 감소: 사용자가 빠르게 입력할 때마다 서버에 요청을 보내는 대신, 일정 시간 동안 입력이 멈췄을 때만 요청을 보냄으로써 서버 부하를 줄일 수 있습니다.
+- UX 개선: 사용자가 빠르게 타이핑할 때마다 화면이 즉시 변하지 않고, 조금 더 부드럽게 반응합니다.
+- 실시간 검색 최적화: 검색 창, 자동완성 등과 같이 타이핑이 자주 일어나는 부분에서 자주 사용됩니다.
 
 components/navbar/NavSearch.tsx
 
@@ -2869,7 +2876,7 @@ favorites    Favorite[]
 model Property {
 favorites    Favorite[]
 }
-
+ 
 model Favorite {
   id        String   @id @default(uuid())
   createdAt DateTime @default(now())

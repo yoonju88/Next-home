@@ -2,8 +2,6 @@ import EmptyList from '@/components/home/EmptyList';
 import PropertiesList from '@/components/home/PropertiesList';
 import { fetchFavorites } from '@/utils/action';
 
-
-
 async function FovoritesPage() {
   const favorites = await fetchFavorites()
 

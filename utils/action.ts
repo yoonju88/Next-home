@@ -74,7 +74,6 @@ export const fetchProfile = async () => {
     })
     if (!profile) redirect('/profile/create')
     return profile;
-    console.log(profile)
 }
 
 export const updateProfileAction = async (
@@ -216,7 +215,6 @@ export const toggleFavoriteAction = async (prevState: {
     } catch (error) {
         return renderError(error)
     }
-    return { message: 'toggle favorite' }
 }
 
 export const fetchFavorites = async () => {
@@ -239,4 +237,15 @@ export const fetchFavorites = async () => {
         },
     })
     return favorites.map((favorite) => favorite.property);
+}
+
+export const fetchPropertyDetails = async (id: string) => {
+    return await db.property.findUnique({
+        where: {
+            id,
+        },
+        include: {
+            profile: true,
+        },
+    })
 }
