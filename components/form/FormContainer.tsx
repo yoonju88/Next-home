@@ -4,7 +4,6 @@ import { useFormState } from "react-dom"
 import { useEffect } from "react"
 import { useToast } from '@/hooks/use-toast'
 import { actionFunction } from '@/utils/types'
-//import { Description } from "@radix-ui/react-toast"
 
 const initialState = {
     message: '',
@@ -13,6 +12,7 @@ const initialState = {
 export default function FormContainer({
     action,
     children,
+
 }: {
     action: actionFunction,
     children: React.ReactNode
@@ -24,7 +24,7 @@ export default function FormContainer({
         if (state.message) {
             toast({ description: state.message })
         }
-    }, [state])
+    }, [state, toast])
 
     return (
         <form action={formAction}>{children}</form>

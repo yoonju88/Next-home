@@ -1,5 +1,4 @@
 'use client';
-
 import { usePathname } from 'next/navigation';
 import FormContainer from '../form/FormContainer';
 import { toggleFavoriteAction } from '@/utils/action';
@@ -11,7 +10,7 @@ type FavoriteToggleFormProps = {
 }
 
 function FavortieToggleForm({ propertyId, favoriteId, }: FavoriteToggleFormProps) {
-    const pathname = usePathname()
+    const pathname = usePathname();
     const toggleAction = toggleFavoriteAction.bind(null, {
         propertyId,
         favoriteId,

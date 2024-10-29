@@ -1,11 +1,11 @@
 import React from 'react'
 import { FaStar } from 'react-icons/fa'
 function PropertyRating({
-    //propertyId,
-    inPage
+    propertyId,
+    inPage,
 }: {
-    //propertyId: string;
     inPage: boolean;
+    propertyId: string
 }) {
     const rating = 4.7
     const count = 100
@@ -13,7 +13,7 @@ function PropertyRating({
     const countText = count > 1 ? 'reviews' : 'review'
     const countValue = `(${count}) ${inPage ? countText : ''}`
     return (
-        <span className={className}>
+        <span className={className} key={propertyId}>
             <FaStar className='w-3 h-3' />
             {rating} {countValue}
         </span>

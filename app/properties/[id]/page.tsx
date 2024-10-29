@@ -38,7 +38,7 @@ export default async function PropertyDetailsPage({
     return (
         <section >
             <BreadCrumbs name={property.name} />
-            <header className='flex justify-between items-center mt-4'>
+            <div className='flex justify-between items-center mt-4'>
                 <h1 className='text-4xl font-bold capitalize'>
                     {property.tagline}
                 </h1>
@@ -51,7 +51,7 @@ export default async function PropertyDetailsPage({
                         propertyId={property.id}
                     />
                 </div>
-            </header>
+            </div>
             <ImageContainer mainImage={property.image} name={property.name} />
             <section className='lg:grid lg:grid-cols-12 gap-x-12 mt-12'>
                 <div className='lg:col-span-8'>
