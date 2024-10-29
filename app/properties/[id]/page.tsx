@@ -7,6 +7,7 @@ import ShareButton from '@/components/properties/ShareButton';
 import { headers } from 'next/headers';
 import ImageContainer from '@/components/properties/ImageContainer';
 import PropertyRating from '@/components/card/PropertyRating';
+import BookingCalender from '@/components/properties/BookingCalender';
 
 async function PropertyDetailsPage({ params }: { params: { id: string } }) {
     const property = await fetchPropertyDetails(params.id)
@@ -14,7 +15,7 @@ async function PropertyDetailsPage({ params }: { params: { id: string } }) {
     const { baths, bedrooms, beds, guests } = property;
     const details = { baths, bedrooms, beds, guests }
     return (
-        <section>
+        <section >
             <BreadCrumbs name={property.name} />
             <header className='flex justify-between items-center mt-4'>
                 <h1 className='text-4xl font-bold capitalize'>
@@ -39,7 +40,7 @@ async function PropertyDetailsPage({ params }: { params: { id: string } }) {
                     </div>
                 </div>
                 <div className='lg:col-span-4 flex flex-col items-center'>
-
+                    <BookingCalender />
                 </div>
             </section>
         </section>
