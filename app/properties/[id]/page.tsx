@@ -4,7 +4,6 @@ import BreadCrumbs from '@/components/properties/BreadCrumbs';
 import { fetchPropertyDetails } from '@/utils/action';
 import { redirect } from 'next/navigation';
 import ShareButton from '@/components/properties/ShareButton';
-import { headers } from 'next/headers';
 import ImageContainer from '@/components/properties/ImageContainer';
 import PropertyRating from '@/components/card/PropertyRating';
 import BookingCalender from '@/components/properties/BookingCalender';
@@ -13,14 +12,29 @@ import UserInfo from '@/components/properties/UserInfo';
 import { Separator } from '@radix-ui/react-dropdown-menu';
 import Description from '@/components/properties/Description';
 import Amenities from '@/components/properties/Amenities';
+// import dynamic from 'next/dynamic';
+// import { Skeleton } from '@/components/ui/skeleton';
 
-async function PropertyDetailsPage({ params }: { params: { id: string } }) {
+// const DynamicMap = dynamic(
+//     () => import('@/components/properties/PropertyMap'),
+//     {
+//         ssr: false,
+//         loading: () => <Skeleton className='h-[400px] w-full' />,
+//     }
+// )
+
+export default async function PropertyDetailsPage({
+    params
+}: {
+    params: { id: string }
+}) {
     const property = await fetchPropertyDetails(params.id)
     if (!property) { redirect('/') }
     const { baths, bedrooms, beds, guests } = property;
     const details = { bedrooms, baths, guests, beds }
     const firstName = property.profile.firstName
     const profileImage = property.profile.profileImage
+
     return (
         <section >
             <BreadCrumbs name={property.name} />
@@ -50,6 +64,7 @@ async function PropertyDetailsPage({ params }: { params: { id: string } }) {
                     <Separator className='mt-4' />
                     <Description description={property.description} />
                     <Amenities amenities={property.amenities} />
+                    {/* <DynamicMap countryCode={property.country} /> */}
                 </div>
                 <div className='lg:col-span-4 flex flex-col items-center'>
                     <BookingCalender />
@@ -59,4 +74,3 @@ async function PropertyDetailsPage({ params }: { params: { id: string } }) {
     )
 }
 
-export default PropertyDetailsPage

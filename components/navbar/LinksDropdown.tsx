@@ -11,7 +11,7 @@ import { Button } from '../ui/button';
 import UserIcon from './UserIcon';
 import { links } from '@/utils/links';
 import SignOutLink from './SignOutLink';
-import {SignedOut, SignedIn, SignInButton, SignUpButton} from '@clerk/nextjs'
+import { SignedOut, SignedIn, SignInButton, SignUpButton } from '@clerk/nextjs'
 
 function LinksDropdown() {
   return (
@@ -22,9 +22,9 @@ function LinksDropdown() {
           <UserIcon />
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent 
-        className='w-52' 
-        align='start' 
+      <DropdownMenuContent
+        className='w-52'
+        align='start'
         sideOffset={10}
       >
         <SignedOut>
@@ -33,10 +33,10 @@ function LinksDropdown() {
               <button className='w-full text-left'>Login</button>
             </SignInButton>
           </DropdownMenuItem>
-          <DropdownMenuSeparator/>
+          <DropdownMenuSeparator />
           <DropdownMenuItem>
             <SignUpButton mode='modal'>
-              <button className= 'w-full text-left'>Register</button>
+              <button className='w-full text-left'>Register</button>
             </SignUpButton>
           </DropdownMenuItem>
         </SignedOut>
@@ -50,9 +50,9 @@ function LinksDropdown() {
               </DropdownMenuItem>
             );
           })}
-          <DropdownMenuSeparator/>
+          <DropdownMenuSeparator />
           <DropdownMenuItem>
-            <SignOutLink/>
+            <SignOutLink />
           </DropdownMenuItem>
         </SignedIn>
       </DropdownMenuContent>

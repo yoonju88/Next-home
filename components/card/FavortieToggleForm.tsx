@@ -10,7 +10,7 @@ type FavoriteToggleFormProps = {
     favoriteId: string | null;
 }
 
-async function FavortieToggleForm({ propertyId, favoriteId, }: FavoriteToggleFormProps) {
+function FavortieToggleForm({ propertyId, favoriteId, }: FavoriteToggleFormProps) {
     const pathname = usePathname()
     const toggleAction = toggleFavoriteAction.bind(null, {
         propertyId,

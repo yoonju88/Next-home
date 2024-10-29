@@ -1,10 +1,10 @@
 import React from 'react'
 import { FaStar } from 'react-icons/fa'
 function PropertyRating({
-    propertyId,
+    //propertyId,
     inPage
 }: {
-    propertyId: string;
+    //propertyId: string;
     inPage: boolean;
 }) {
     const rating = 4.7
