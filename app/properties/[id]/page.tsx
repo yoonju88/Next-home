@@ -8,12 +8,13 @@ import { headers } from 'next/headers';
 import ImageContainer from '@/components/properties/ImageContainer';
 import PropertyRating from '@/components/card/PropertyRating';
 import BookingCalender from '@/components/properties/BookingCalender';
+import PropertyDetails from '@/components/properties/PropertyDetails';
 
 async function PropertyDetailsPage({ params }: { params: { id: string } }) {
     const property = await fetchPropertyDetails(params.id)
     if (!property) { redirect('/') }
     const { baths, bedrooms, beds, guests } = property;
-    const details = { baths, bedrooms, beds, guests }
+    const details = { bedrooms, baths, guests, beds }
     return (
         <section >
             <BreadCrumbs name={property.name} />
@@ -38,6 +39,7 @@ async function PropertyDetailsPage({ params }: { params: { id: string } }) {
                         <h1 className='text-xl font-bold'>{property.name}</h1>
                         <PropertyRating inPage propertyId={property.id} />
                     </div>
+                    <PropertyDetails details={details} />
                 </div>
                 <div className='lg:col-span-4 flex flex-col items-center'>
                     <BookingCalender />
