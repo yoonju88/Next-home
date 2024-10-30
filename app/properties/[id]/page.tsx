@@ -14,13 +14,13 @@ import Description from '@/components/properties/Description';
 import Amenities from '@/components/properties/Amenities';
 import { DynamicMap } from '@/components/properties/DynamicMap';
 
-
 export default async function PropertyDetailsPage({
     params
 }: {
     params: { id: string }
 }) {
-    const property = await fetchPropertyDetails(params.id)
+    const { id } = await params
+    const property = await fetchPropertyDetails(id)
     if (!property) { redirect('/') }
     const { baths, bedrooms, beds, guests } = property;
     const details = { bedrooms, baths, guests, beds }

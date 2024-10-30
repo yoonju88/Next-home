@@ -1,6 +1,6 @@
 import React from 'react'
 import { FaStar } from 'react-icons/fa'
-function PropertyRating({
+async function PropertyRating({
     propertyId,
     inPage,
 }: {
@@ -12,12 +12,12 @@ function PropertyRating({
     const className = `flex gap-1 items-center ${inPage ? 'text-md' : 'text-xs'}`
     const countText = count > 1 ? 'reviews' : 'review'
     const countValue = `(${count}) ${inPage ? countText : ''}`
+    const id = await propertyId
     return (
-        <span className={className}>
+        <span className={className} key={id}>
             <FaStar className='w-3 h-3' />
             {rating} {countValue}
         </span>
     )
 }
-
 export default PropertyRating

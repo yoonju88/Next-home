@@ -3672,6 +3672,9 @@ export default PropertyMap;
 - properties/[id]/page.tsx
 
 ```tsx
+import dynamic from 'next/dynamic';
+import { Skeleton } from '@/components/ui/skeleton';
+
 const DynamicMap = dynamic(
   () => import('@/components/properties/PropertyMap'),
   {
@@ -3688,7 +3691,7 @@ Server Side Rendering (SSR) Control: By default, Next.js pre-renders every page.
 
 ### Deploy
 
-```json
+```package.json
 "scripts": {
     "dev": "next dev",
     "build": "npx prisma generate && next build",
@@ -3696,6 +3699,8 @@ Server Side Rendering (SSR) Control: By default, Next.js pre-renders every page.
     "lint": "next lint"
   },
 ```
+
+rm -rf .git
 
 - refactor NavSearch Component
 
