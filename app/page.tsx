@@ -8,7 +8,6 @@ function HomePage({
 }: {
   searchParams: { category?: string; search?: string; }
 }) {
-
   const { category, search } = searchParams;
 
   return (
