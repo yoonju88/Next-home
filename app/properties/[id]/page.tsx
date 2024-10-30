@@ -12,16 +12,8 @@ import UserInfo from '@/components/properties/UserInfo';
 import { Separator } from '@radix-ui/react-dropdown-menu';
 import Description from '@/components/properties/Description';
 import Amenities from '@/components/properties/Amenities';
-import dynamic from 'next/dynamic';
-import { Skeleton } from '@/components/ui/skeleton';
+import { DynamicMap } from '@/components/properties/DynamicMap';
 
-const DynamicMap = dynamic(
-    () => import('@/components/properties/PropertyMap'),
-    {
-        ssr: false,
-        loading: () => <Skeleton className='h-[400px] w-full' />,
-    }
-);
 
 export default async function PropertyDetailsPage({
     params

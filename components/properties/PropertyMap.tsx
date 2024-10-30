@@ -23,6 +23,7 @@ export default function PropertyMap({ countryCode }: { countryCode: string }) {
                 <CountryFlagAndName countryCode={countryCode} />
             </div>
             <MapContainer
+                key={countryCode}
                 scrollWheelZoom={false}
                 zoomControl={false}
                 className='h-[50vh] rounded-lg relative z-0'
