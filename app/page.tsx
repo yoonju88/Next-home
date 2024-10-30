@@ -3,14 +3,13 @@ import PropertiesContainer from '@/components/home/PropertiesContainer'
 import { Suspense } from 'react'
 import LoadingCard from '@/components/card/LoadingCard'
 
-async function HomePage({
+function HomePage({
   searchParams,
 }: {
   searchParams: { category?: string; search?: string; }
 }) {
 
-  const { category } = await searchParams
-  const { search } = await searchParams
+  const { category, search } = searchParams;
 
   return (
     <section>
