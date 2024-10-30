@@ -17,7 +17,6 @@ function Calendar({
   className,
   classNames,
   showOutsideDays = true,
-  mode,
   ...props
 }: CalendarProps
 ) {
