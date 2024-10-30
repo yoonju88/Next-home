@@ -30,7 +30,7 @@ function NavSearch() {
     if (!searchParams.get('search')) {
       setSearch('')
     }
-  }, [searchParams.get('search')])
+  }, [searchParams])
   // search 쿼리 파라미터가 없으면 search 상태를 빈 문자열로 설정
   // 사용자가 검색어를 지웠을 때 상태를 업데이트하는 데 유용
   return (
