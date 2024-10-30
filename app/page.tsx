@@ -6,7 +6,7 @@ import LoadingCard from '@/components/card/LoadingCard'
 function HomePage({
   searchParams,
 }: {
-  searchParams: { category?: string; search?: string; }
+  searchParams: { category?: string | undefined; search?: string | undefined; }
 }) {
   const { category, search } = searchParams;
 
