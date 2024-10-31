@@ -248,7 +248,10 @@ export const fetchPropertyDetails = async (id: string) => {
     })
 }
 
-export const createReviewAction = async (prevState: any, formData: FormData) => {
+export const createReviewAction = async (
+    prevState: any,
+    formData: FormData
+) => {
     const user = await getAuthUser();
     try {
         const rawData = Object.fromEntries(formData)
@@ -266,14 +269,63 @@ export const createReviewAction = async (prevState: any, formData: FormData) => 
     }
 };
 
-export const fetchPropertyReviews = async () => {
-    return { message: 'fetch reviews' };
+export const fetchPropertyReviews = async (propertyId: string) => {
+    const reviews = await db.review.findMany({  // review 테이블에서 여러 개의 리뷰를 조회
+        where: {
+            propertyId, // propertyId와 일치하는 리뷰만 가져옵니다.
+        },
+        select: { // select는 필요한 컬럼(필드)만 선택하여 가져오는 옵션
+            id: true,
+            rating: true,
+            comment: true,
+            profile: {
+                select: {
+                    firstName: true,
+                    profileImage: true,
+                },
+            },
+        },
+        orderBy: { // orderBy는 결과를 정렬하는 옵션
+            createdAt: 'desc' // createdAt(리뷰 작성일)을 기준으로 내림차순(desc) 정렬
+        },
+    })
+    return reviews;
 };
-
+// 현재 인증된 사용자가 남긴 리뷰 목록을 조회
 export const fetchPropertyReviewsByUser = async () => {
-    return { message: 'fetch user reviews' };
+    const user = await getAuthUser()
+    const reviews = await db.review.findMany({
+        where: {
+            profileId: user.id,
+        },
+        select: {
+            id: true,
+            rating: true,
+            comment: true,
+            property: {
+                select: {
+                    name: true,
+                    image: true,
+                },
+            },
+        },
+    })
+    return reviews
 };
-
-export const deleteReviewAction = async () => {
-    return { message: 'delete  reviews' };
+//prevState를 인수로 받는 이유는 삭제하려는 리뷰의 ID (reviewId)를 함수에 전달하기 위해
+export const deleteReviewAction = async (prevState: { reviewId: string }) => {
+    const { reviewId } = prevState;
+    const user = await getAuthUser()
+    try {
+        await db.review.delete({
+            where: { // where 조건에 따라 reviewId와 profileId가 일치하는 경우에만 삭제
+                id: reviewId,
+                profileId: user.id,
+            },
+        })
+        revalidatePath('/reviews')
+        return { message: 'Review deleted successfully' }
+    } catch (error) {
+        return renderError(error)
+    }
 };

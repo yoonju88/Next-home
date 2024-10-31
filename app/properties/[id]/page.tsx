@@ -14,7 +14,7 @@ import Description from '@/components/properties/Description';
 import Amenities from '@/components/properties/Amenities';
 import { DynamicMap } from '@/components/properties/DynamicMap';
 import SubmitReview from '@/components/reviews/SubmitReview';
-
+import PropertyReviews from '@/components/reviews/PropertyReviews'
 export default async function PropertyDetailsPage({
     params
 }: {
@@ -64,6 +64,7 @@ export default async function PropertyDetailsPage({
                 </div>
             </section>
             <SubmitReview propertyId={property.id} />
+            <PropertyReviews propertyId={property.id} />
 
         </section>
     )
