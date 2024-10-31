@@ -13,6 +13,7 @@ import { Separator } from '@radix-ui/react-dropdown-menu';
 import Description from '@/components/properties/Description';
 import Amenities from '@/components/properties/Amenities';
 import { DynamicMap } from '@/components/properties/DynamicMap';
+import SubmitReview from '@/components/reviews/SubmitReview';
 
 export default async function PropertyDetailsPage({
     params
@@ -62,6 +63,8 @@ export default async function PropertyDetailsPage({
                     <BookingCalender />
                 </div>
             </section>
+            <SubmitReview propertyId={property.id} />
+
         </section>
     )
 }
