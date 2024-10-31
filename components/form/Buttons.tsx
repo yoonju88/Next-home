@@ -43,7 +43,7 @@ export default function SubmitButton({
 
 export const CardSignInButton = () => {
   return (
-    <SignInButton mode='model'>
+    <SignInButton mode='modal'>
       <Button
         type='button'
         size='icon'
