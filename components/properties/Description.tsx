@@ -11,7 +11,7 @@ export default function Description({ description }: { description: string }) {
     const toggleDescription = () => {
         setIsFullDescriptionShown(!isFullDescriptionShown)
     }
-    const displayedDescription = isLongDescription && !isFullDescriptionShown ? words.splice(0, 100).join('') + '...'
+    const displayedDescription = isLongDescription && !isFullDescriptionShown ? words.splice(0, 350).join('') + '...'
         : description
 
     return (
@@ -31,8 +31,4 @@ export default function Description({ description }: { description: string }) {
             )}
         </article>
     )
-
-
-
-
 }
