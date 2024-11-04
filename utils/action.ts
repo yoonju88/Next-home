@@ -237,16 +237,16 @@ export const fetchFavorites = async () => {
     return favorites.map((favorite) => favorite.property);
 }
 
-export const fetchPropertyDetails = async (id: string) => {
-    return await db.property.findUnique({
-        where: {
-            id,
-        },
-        include: {
-            profile: true,
-        },
-    })
-}
+// export const fetchPropertyDetails = async (id: string) => {
+//     return await db.property.findUnique({
+//         where: {
+//             id,
+//         },
+//         include: {
+//             profile: true,
+//         },
+//     })
+// }
 
 export const createReviewAction = async (
     prevState: any,
@@ -357,6 +357,23 @@ export const findExistingReview = async (
         where: {
             profileId: userId,
             propertyId: propertyId,
+        },
+    })
+}
+
+export const fetchPropertyDetails = (id: string) => {
+    return db.property.findUnique({
+        where: {
+            id,
+        },
+        include: {
+            profile: true,
+            bookings: {
+                select: {
+                    checkIn: true,
+                    checkOut: true,
+                },
+            },
         },
     })
 }
