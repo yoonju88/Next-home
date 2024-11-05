@@ -35,7 +35,9 @@ export default function BookingCalender() {
             }
             return false;
         })
-        useProperty.setState({ range })
+        if (isDisabledDateIncluded) {
+            useProperty.setState({ range })
+        }
     }, [range])
 
     return (

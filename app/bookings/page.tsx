@@ -31,7 +31,7 @@ async function BookingsPage() {
 
   return (
     <div className='mt-16'>
-      <h4 className='mb-4 capitalize'> total bookings: {bookings.length}</h4>
+      <h4 className='mb-4 capitalize'> total bookings:&nbsp;{bookings.length}</h4>
       <Table>
         <TableCaption className='mt-5'>A list of your recent bookings.</TableCaption>
         <TableHeader>
