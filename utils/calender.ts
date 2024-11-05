@@ -1,4 +1,4 @@
-import { DataRange, DateRange } from 'react-day-picker'
+import { DateRange } from 'react-day-picker'
 import { Booking } from './types'
 
 export const defaultSelected: DateRange = {
@@ -56,19 +56,31 @@ export const generateDisabledDates = (
 
     disabledDays.forEach((range) => {
         if (!range.from || !range.to) return
-        let currentDate = new Date(range.from)
         const endDate = new Date(range.to)
+        if (endDate < today) return; //skip this range if it ends before today
 
+        let currentDate = new Date(range.from)
+        if (currentDate < today) currentDate = new Date(today) //if the start date is bofore today, start form today instead.
         while (currentDate <= endDate) {
-            if (currentDate < today) {
-                currentDate.setDate(currentDate.getDate() + 1)
-                continue;
-            }
-            const dateString = currentDate.toString().split('T')[0];
+            // toISOString(): 날짜와 시간을 국제 표준 시간(UTC) 형식의 문자열로 변환 출력 예시: 2023-11-05T14:35:45.123Z
+            const dateString = currentDate.toISOString().split('T')[0];
             disableDates[dateString] = true;
             currentDate.setDate(currentDate.getDate() + 1)
-
         }
     })
     return disableDates;
+}
+
+export function calculateDaysBetween({
+    checkIn,
+    checkOut,
+}: {
+    checkIn: Date;
+    checkOut: Date;
+}) {
+    // calculate the difference in milliseconds
+    const diffInMs = Math.abs(checkOut.getTime() - checkIn.getTime())
+    //calulate the difference in milliseconds to days
+    const diffInDays = diffInMs / (1000 * 60 * 60 * 24)
+    return diffInDays;
 }
