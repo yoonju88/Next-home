@@ -520,3 +520,69 @@ export async function deleteRentalAction(prevState: { propertyId: string }) {
 
 //_sum 앞에 붙은 _는 Prisma의 집계 결과를 반환할 때 사용하는 구분자로, 집계된 값을 명확히 구분하기 위한 것입니다. aggregate 쿼리에서 합계를 구할 때 sum 연산을 사용할 경우, 그 결과는 항상 _sum 객체 안에 포함됩니다.
 
+export const fetchRentalDetails = async (propertyId: string) => {
+    const user = await getAuthUser()
+
+    return db.property.findUnique({
+        where: {
+            id: propertyId,
+            profileId: user.id,
+        },
+    })
+}
+
+export const updatePropertyAction = async (
+    prevState: any,
+    formData: FormData
+): Promise<{ message: string }> => {
+
+    const user = await getAuthUser()
+    const propertyId = formData.get('id') as string
+
+    try {
+        const rawData = Object.fromEntries(formData)
+        const validatedFields = validateWithZodSchema(propertySchema, rawData)
+        await db.property.update({
+            where: {
+                id: propertyId,
+                profileId: user.id
+            },
+            data: {
+                ...validatedFields,
+            },
+        })
+        revalidatePath('/rentals/${propertyId}/edit')
+        return { message: 'Update Successful' }
+    } catch (error) {
+        return renderError(error)
+    }
+}
+
+export const updatePropertyImageAction = async (
+    prevState: any,
+    formData: FormData
+): Promise<{ message: string }> => {
+
+    const user = await getAuthUser()
+    const propertyId = formData.get('id') as string
+
+    try {
+        const image = formData.get('image') as File;
+        const validateFields = validateWithZodSchema(imageSchema, { image })
+        const fullPath = await uploadImage(validateFields.image);
+
+        await db.property.update({
+            where: {
+                id: propertyId,
+                profileId: user.id,
+            },
+            data: {
+                image: fullPath,
+            },
+        })
+        revalidatePath(`/rentals/${propertyId}/edit`)
+        return { message: 'Property Image Updated Successful' }
+    } catch (error) {
+        return renderError(error)
+    }
+}
