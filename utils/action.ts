@@ -7,6 +7,7 @@ import { createReviewSchema, imageSchema, profileSchema, propertySchema, validat
 import { uploadImage } from './supabase';
 import { string } from 'zod';
 import { calculateTotals } from './calculateTotals';
+import { cp } from 'fs';
 
 const getAuthUser = async () => {
     const user = await currentUser()
@@ -455,3 +456,67 @@ export async function deleteBookingAction(prevState: { bookingId: string }) {
         return renderError(error)
     }
 }
+//이 코드는 렌탈(숙소) 정보와 관련된 데이터를 DB에서 가져오고, 
+//그에 대한 **예약 정보(예약된 총 밤 수 및 총 금액)**를 함께 계산해서 반환하는 함수
+export const fetchRentals = async () => {
+    const user = await getAuthUser()
+    const rentals = await db.property.findMany({
+        where: {
+            profileId: user.id,
+        },
+        select: {
+            id: true,
+            name: true,
+            price: true,
+        },
+    })
+
+    const rentalsWithBookingSums = await Promise.all(
+        rentals.map(async (rental) => {
+            const totalNightsSum = await db.booking.aggregate({
+                where: {
+                    propertyId: rental.id,
+                },
+                _sum: {
+                    totalNights: true,
+                }
+            })
+
+            const oderTotalSum = await db.booking.aggregate({
+                where: {
+                    propertyId: rental.id,
+                },
+                _sum: {
+                    orderTotal: true,
+                },
+            })
+            return {
+                ...rental,
+                totalNightsSum: totalNightsSum._sum.totalNights,
+                oderTotalSum: oderTotalSum._sum.orderTotal,
+            }
+        })
+    )
+    return rentalsWithBookingSums
+}
+
+export async function deleteRentalAction(prevState: { propertyId: string }) {
+    const { propertyId } = prevState
+    const user = await getAuthUser()
+
+    try {
+        await db.property.delete({
+            where: {
+                id: propertyId,
+                profileId: user.id,
+            }
+        })
+        revalidatePath('/rentals')
+        return { message: 'Rental deleted succefully' }
+    } catch (error) {
+        return renderError(error)
+    }
+}
+
+//_sum 앞에 붙은 _는 Prisma의 집계 결과를 반환할 때 사용하는 구분자로, 집계된 값을 명확히 구분하기 위한 것입니다. aggregate 쿼리에서 합계를 구할 때 sum 연산을 사용할 경우, 그 결과는 항상 _sum 객체 안에 포함됩니다.
+
