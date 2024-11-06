@@ -493,7 +493,7 @@ export const fetchRentals = async () => {
             return {
                 ...rental,
                 totalNightsSum: totalNightsSum._sum.totalNights,
-                oderTotalSum: oderTotalSum._sum.orderTotal,
+                orderTotalSum: oderTotalSum._sum.orderTotal,
             }
         })
     )
