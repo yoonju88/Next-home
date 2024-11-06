@@ -25,7 +25,7 @@ export default function BookingCalender() {
     useEffect(() => {
         const selectedRange = generateDateRange(range)
         // some: 배열의 요소 중 하나라도 특정 조건을 만족하는지 확인하는 데 사용
-        const isDisabledDateIncluded = selectedRange.some((date) => {
+        selectedRange.some((date) => {
             if (unavailableDates[date]) {
                 setRange(defaultSelected)
                 toast({
@@ -35,9 +35,7 @@ export default function BookingCalender() {
             }
             return false;
         })
-        if (isDisabledDateIncluded) {
-            useProperty.setState({ range })
-        }
+        useProperty.setState({ range })
     }, [range])
 
     return (
