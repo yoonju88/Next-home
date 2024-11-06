@@ -25,6 +25,7 @@ export default function ImageInputContainer(props: ImageInputContainerProps) {
 
     return (
         <div>
+
             {image ? (
                 <Image
                     src={image}

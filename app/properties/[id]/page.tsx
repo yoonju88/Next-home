@@ -17,7 +17,7 @@ import { auth } from '@clerk/nextjs/server'
 import { Skeleton } from '@/components/ui/skeleton';
 import dynamic from 'next/dynamic'
 
-export const DynamicMap = dynamic(() => import('@/components/properties/PropertyMap'), {
+const DynamicMap = dynamic(() => import('@/components/properties/PropertyMap'), {
     ssr: false,
     loading: () => <Skeleton className="h-[400px] w-full" />,
 });
@@ -29,6 +29,7 @@ const DynamicBookingWrapper = dynamic(
         loading: () => <Skeleton className='h-[200px] w-full' />,
     }
 );
+
 export default async function PropertyDetailsPage({
     params
 }: {
