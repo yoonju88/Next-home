@@ -400,7 +400,7 @@ export const createBookingAction = async (prevState: {
     })
 
     try {
-        const booking = await db.booking.create({
+        await db.booking.create({
             data: {
                 checkIn,
                 checkOut,
@@ -440,10 +440,10 @@ export const fetchBookings = async () => {
 
 export async function deleteBookingAction(prevState: { bookingId: string }) {
     const { bookingId } = prevState;
-    const user = getAuthUser()
+    const user = await getAuthUser();
 
     try {
-        const result = await db.booking.delete({
+        await db.booking.delete({
             where: {
                 id: bookingId,
                 profileId: user.id,
