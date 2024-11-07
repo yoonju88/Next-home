@@ -5706,10 +5706,12 @@ export default ReservationsPage;
 ### Admin User - Middleware
 
 - refactor middleware
-- create ENV variable with userId
+(with console.log(auth().userId) get UserId you want to give admin user on application)
+- create ENV variable with userId => npm run dev 
 - add to VERCEL
 
 ```ts
+
 import { clerkMiddleware, createRouteMatcher } from '@clerk/nextjs/server';
 
 import { NextResponse } from 'next/server';
@@ -5722,7 +5724,10 @@ export default clerkMiddleware(async (auth, req) => {
   if (isAdminRoute(req) && !isAdminUser) {
     return NextResponse.redirect(new URL('/', req.url));
   }
-  if (!isPublicRoute(req)) auth().protect();
+  if (isPublicRoute(req)) {
+    return NextResponse.next()
+  }
+  auth().protect();
 });
 
 export const config = {
@@ -5899,7 +5904,7 @@ export const fetchChartsData = async () => {
       createdAt: 'asc',
     },
   });
-  let bookingsPerMonth = bookings.reduce((total, current) => {
+  const bookingsPerMonth = bookings.reduce((total, current) => {
     const date = formatDate(current.createdAt, true);
 
     const existingEntry = total.find((entry) => entry.date === date);
