@@ -17,6 +17,12 @@ export const formatDate = (date: Date, onlyMonth?: boolean) => {
         year: 'numeric',
         month: 'long',
     }
-    if (!onlyMonth) { options.day = 'numeric' }
-    return new Intl.DateTimeFormat('en-US', options).format(date)
+
+    if (!onlyMonth) {
+        options.day = 'numeric';
+    }
+
+    const formattedDate = new Intl.DateTimeFormat('fr-FR', options).format(date)
+    console.log('formattedDate', formattedDate)
+    return formattedDate;
 }

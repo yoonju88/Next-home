@@ -239,18 +239,6 @@ export const fetchFavorites = async () => {
     })
     return favorites.map((favorite) => favorite.property);
 }
-
-// export const fetchPropertyDetails = async (id: string) => {
-//     return await db.property.findUnique({
-//         where: {
-//             id,
-//         },
-//         include: {
-//             profile: true,
-//         },
-//     })
-// }
-
 export const createReviewAction = async (
     prevState: any,
     formData: FormData
@@ -638,7 +626,7 @@ export const fetchStats = async () => {
         bookingsCount,
     }
 }
-
+/*
 export const fetchChartsData = async () => {
     await getAdminUser()
     const date = new Date()
@@ -655,10 +643,9 @@ export const fetchChartsData = async () => {
             createdAt: 'asc',
         },
     })
-
     const bookingsPerMonth = bookings.reduce((total, current) => {
-        const date = formatDate(current.createdAt, true)
-
+        const createAt = new Date(current.createdAt)
+        const date = formatDate(createAt, true)
         const existingEntry = total.find((entry) => entry.date === date)
         if (existingEntry) {
             existingEntry.count += 1
@@ -669,3 +656,4 @@ export const fetchChartsData = async () => {
     }, [] as Array<{ date: string, count: number }>)
     return bookingsPerMonth;
 }
+    */
