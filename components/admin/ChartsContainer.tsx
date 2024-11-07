@@ -1,5 +1,5 @@
 /*import { fetchChartsData } from '@/utils/action'*/
-import Chart from './Chart'
+//import Chart from './Chart'
 
 export default async function ChartsContainer() {
     /*const bookings = await fetchChartsData()
