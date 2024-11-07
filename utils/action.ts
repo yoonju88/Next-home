@@ -8,6 +8,7 @@ import { uploadImage } from './supabase';
 import { string } from 'zod';
 import { calculateTotals } from './calculateTotals';
 import { cp } from 'fs';
+import { formatDate } from 'date-fns';
 
 const getAuthUser = async () => {
     const user = await currentUser()
@@ -614,4 +615,57 @@ export const fetchReservations = async () => {
         },
     })
     return reservations
+}
+
+//Admin user -fetch stats
+
+const getAdminUser = async () => {
+    const user = await getAuthUser()
+    if (user.id !== process.env.ADMIN_USER_ID) redirect('/')
+    return user;
+}
+
+export const fetchStats = async () => {
+    await getAdminUser()
+
+    const userCount = await db.profile.count()
+    const propertyCount = await db.property.count()
+    const bookingsCount = await db.booking.count()
+
+    return {
+        userCount,
+        propertyCount,
+        bookingsCount,
+    }
+}
+
+export const fetchChartsData = async () => {
+    await getAdminUser()
+    const date = new Date()
+    date.setMonth(date.getMonth() - 6)
+    const sixMonthsAgo = date;
+
+    const bookings = await db.booking.findMany({
+        where: {
+            createdAt: {
+                gte: sixMonthsAgo,
+            },
+        },
+        orderBy: {
+            createdAt: 'asc',
+        },
+    })
+
+    const bookingsPerMonth = bookings.reduce((total, current) => {
+        const date = formatDate(current.createdAt, true)
+
+        const existingEntry = total.find((entry) => entry.date === date)
+        if (existingEntry) {
+            existingEntry.count += 1
+        } else {
+            total.push({ date, count: 1 })
+        }
+        return total
+    }, [] as Array<{ date: string, count: number }>)
+    return bookingsPerMonth;
 }
