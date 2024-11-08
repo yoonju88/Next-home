@@ -374,6 +374,8 @@ export const createBookingAction = async (prevState: {
     checkIn: Date;
     checkOut: Date;
 }) => {
+
+    let bookingId: null | string = null;
     const user = await getAuthUser()
     const { propertyId, checkIn, checkOut } = prevState;
     const property = await db.property.findUnique({
@@ -388,9 +390,15 @@ export const createBookingAction = async (prevState: {
         checkOut,
         price: property.price,
     })
+    await db.booking.deleteMany({
+        where: {
+            profileId: user.id,
+            paymentStatus: false,
+        }
+    })
 
     try {
-        await db.booking.create({
+        const booking = await db.booking.create({
             data: {
                 checkIn,
                 checkOut,
@@ -399,11 +407,12 @@ export const createBookingAction = async (prevState: {
                 profileId: user.id,
                 propertyId,
             },
-        })
+        });
+        bookingId = booking.id
     } catch (error) {
         return renderError(error)
     }
-    redirect('/bookings')
+    redirect(`/checkout?bookingId=${bookingId}`)
 }
 
 export const fetchBookings = async () => {

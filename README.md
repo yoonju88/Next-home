@@ -6000,11 +6000,16 @@ export default Chart;
 ```
 
 ### Stripe
+[Docs](https://stripe.com/fr)
+on the menu <developer> => API Keys
 
 [Embedded Form](https://docs.stripe.com/checkout/embedded/quickstart)
 
 - setup and add keys to .env
 - install
+
+NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY =
+STRIPE_SECRET_KEY=
 
 ```sh
 npm install --save @stripe/react-stripe-js @stripe/stripe-js stripe axios
