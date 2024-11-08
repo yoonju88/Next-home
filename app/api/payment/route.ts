@@ -10,7 +10,7 @@ import { formatDate } from '@/utils/format'
 export const POST = async (req: NextRequest, res: NextResponse) => {
     // This extracts headers from req to get the header, which represents the base URL of the request's origin
     const requestHeaders = new Headers(req.headers)
-    const origin = requestHeaders.get('origin') || process.env.NEXT_PUBLIC_BASE_URL
+    const origin = requestHeaders.get('origin')
     // Reads the Json body of the request to get bookingId which will be used to look up the specific booking information in the database.
     const { bookingId } = await req.json()
     //queries the bookings table in the database to find a booking that matches bookingId.
