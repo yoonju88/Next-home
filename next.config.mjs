@@ -17,7 +17,6 @@ const nextConfig = {
     },
     env: {
         STRIPE_SECRET_KEY: process.env.STRIPE_SECRET_KEY, // 환경 변수 추가
-        API_BASE_URL: process.env.API_BASE_URL, // 환경 변수 추가
     },
 };
 export default nextConfig;
