@@ -2,6 +2,7 @@
 // process.env.STRIPE_SECRET_KEY hold the secret API key, allowing secure interaction with Stripe API.
 import Stripe from 'stripe'
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string)
+console.log('Stripe secret key exists:', !!process.env.STRIPE_SECRET_KEY);
 
 import { type NextRequest } from 'next/server'
 import db from '@/utils/db'
