@@ -3,11 +3,11 @@
 import Stripe from 'stripe'
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string)
 
-import { type NextRequest } from 'next/server'
+import { type NextRequest, type NextResponse } from 'next/server'
 import db from '@/utils/db'
 import { formatDate } from '@/utils/format'
 
-export const POST = async (req: NextRequest) => {
+export const POST = async (req: NextRequest, res: NextResponse) => {
     // This extracts headers from req to get the header, which represents the base URL of the request's origin
     const requestHeaders = new Headers(req.headers)
     const origin = requestHeaders.get('origin')
@@ -27,7 +27,7 @@ export const POST = async (req: NextRequest) => {
     })
     // checking for missing booking 
     if (!booking) {
-        return Response.json(null, {
+        return Response.json({
             status: 404,
             statusText: 'Not Found',
         })
